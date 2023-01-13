@@ -1,4 +1,4 @@
-# soundcord-website
+# SoundCord Website
 
 ## Project setup
 ```
