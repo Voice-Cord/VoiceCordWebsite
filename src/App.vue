@@ -1,9 +1,16 @@
 <template>
+	<Navbar />
 	<router-view></router-view>
 </template>
 
 <script>
-export default {};
+import Navbar from "./components/Navbar.vue";
+
+export default {
+    components: {
+        Navbar
+    },
+};
 </script>
 
 <style>
@@ -19,18 +26,19 @@ export default {};
 :root {
 	--navbar-height: 60px;
 
-	--primary: #ba0c2f;
-	--secondary: #0060a9 !important;
-	--accent: #0096db !important;
-	--accent2: #646464 !important;
+	--primary: #5966f3;
+	--secondary: #7289da!important;
+	--accent: #0060a9 !important;
+	--accent2: #ebd40d !important;
 
-	--primaryRGB: 186, 12, 47 !important;
-	--secondaryRGB: 0, 96, 169 !important;
+	--primaryRGB: 89, 102, 243 !important;
+	--secondaryRGB: 114, 137, 218 !important;
 	--accentRGB: 0, 150, 219 !important;
 	--accent2RGB: 100, 100, 100 !important;
 
-	--primary-dark: #800820 !important;
+	--primary-dark: #4e5d94 !important;
 	--secondary-dark: hsl(206, 100%, 25%) !important;
+    --accent2-dark: hsl(54, 90%, 30%) !important;
 
 	--red-gradient-left: linear-gradient(
 		to left,
@@ -44,7 +52,11 @@ export default {};
 		var(--primary-dark) 45%
 	);
 
-	--blue-gradient-left: linear-gradient(to left, var(--secondary), #004377 45%);
+	--blue-gradient-left: linear-gradient(
+		to left,
+		var(--secondary),
+		#004377 45%
+	);
 
 	--blue-gradient-right: linear-gradient(
 		to right,
@@ -59,12 +71,10 @@ export default {};
 		var(--accent2),
 		#353535 45%
 	);
-
-	--off-white: #fafafa;
 }
 
 body {
-	background-color: var(--off-white);
+	background-color: var(--secondary);
 	color: rgb(20, 20, 20);
 	font-family: "Montserrat", sans-serif;
 	line-height: 1.75;
@@ -266,8 +276,8 @@ p {
 .btn-secondary:active,
 .btn-secondary:focus,
 .btn-secondary:active:focus {
-	background-color: var(--secondary);
-	color: rgb(255, 255, 255);
+	background-color: var(--accent2);
+	color: black;
 	border: none;
 	outline: none;
 	box-shadow: none;
@@ -275,7 +285,8 @@ p {
 }
 
 .btn-secondary:hover {
-	background-color: var(--secondary-dark) !important;
+    color: white;
+	background-color: var(--accent2-dark) !important;
 }
 
 .primary-section {
@@ -287,7 +298,7 @@ p {
 }
 
 .accent-section {
-	border-bottom: 5px solid var(--accent2);
+	border-bottom: 5px solid var(--accent);
 }
 
 .large {
