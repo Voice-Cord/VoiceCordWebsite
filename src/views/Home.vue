@@ -1,14 +1,14 @@
 <template>
 	<SkewBox
 		:rightBG="{
-			backgroundImage: `url(${require('@/assets/img/Hero.jpg')})`,
-			'background-position': 'top right',
+			backgroundImage: `url(${require('@/assets/img/Microphone/OrangeBlueMic.jpg')})`,
+			'background-position': 'top',
 			'background-size': 'cover',
 			'background-repeat': 'none',
 			width: '58vw!important',
 		}"
 		:rightColor="'transparent'"
-		:leftColor="'rgba(var(--primaryRGB), 1); backdrop-filter: blur(5px);'"
+		:leftColor="'var(--primary); backdrop-filter: blur(5px);'"
 		:height="500"
 		:padding="'0'"
 	>
@@ -28,7 +28,7 @@
 						<a
 							href="https://www.discord.com"
 							target="_blank"
-							class="btn btn-secondary btn-lg"
+							class="btn btn-primary btn-lg"
 						>
 							Invite to Server
 						</a>
@@ -39,7 +39,7 @@
 					>
 						<router-link
 							to="/documentation"
-							class="btn btn-secondary btn-lg"
+							class="btn btn-primary btn-lg"
 						>
 							Documentation
 						</router-link>
@@ -61,7 +61,7 @@
 		<div class="blur">
 			<div class="container h-100 py-5">
 				<h1 class="white center">About VoiceCord</h1>
-				<p class="white">
+				<p class="white justify-large">
 					{{ data }} Lorem ipsum dolor sit amet consectetur adipisicing elit.
 					Sequi numquam facere id reiciendis iusto repudiandae,
 					nesciunt totam voluptas aliquam sapiente labore voluptate,
@@ -102,7 +102,7 @@
 <script>
 import Parallax from "@/components/Parallax.vue";
 import SkewBox from "@/components/SkewBox.vue";
- 
+import { supabase } from "@/supabase";
 
 export default {
 	components: {

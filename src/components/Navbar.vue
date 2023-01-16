@@ -5,10 +5,11 @@
 				<div class="row block-center">
 					<router-link to="/" class="col-2 me-0 navbar-brand">
 						<img
-							src="@/assets/logo.png"
-							height="50"
+							src="@/assets/img/Logo/VoiceCordFull.png"
+							height="70"
 							alt="Logo"
 							title="Logo"
+                            style="position:absolute;"
 						/>
 					</router-link>
 
@@ -74,8 +75,8 @@
 								<div class="nav-item">
 									<div class="nav-link">
 										<a
-											href=""
-											class="btn btn-secondary btn-md"
+											href="https://discord.com/api/oauth2/authorize?client_id=1061725454366687232&permissions=8&scope=bot"
+											class="btn btn-primary btn-md"
 											target="_blank"
 										>
 											Invite
@@ -105,21 +106,23 @@
 							<div class="navbar-nav">
 								<div class="nav-item" v-if="!isLoggedIn">
 									<div class="nav-link">
-										<router-link
-											to="/login"
-											class="btn btn-primary btn-md"
-											>Login</router-link
+										<button
+											@click="loginWithDiscord"
+											class="btn btn-secondary btn-md"
 										>
+											Login
+										</button>
 									</div>
 								</div>
 
-                                <div class="nav-item" v-if="!isLoggedIn">
+								<div class="nav-item" v-if="!isLoggedIn">
 									<div class="nav-link">
-										<router-link
-											to="/login"
-											class="btn btn-primary btn-md"
-											>Login</router-link
+										<button
+											@click="logout"
+											class="btn btn-secondary btn-md"
 										>
+											Log Out
+										</button>
 									</div>
 								</div>
 
@@ -188,6 +191,7 @@
 
 <script>
 import Dropdown from "./Dropdown.vue";
+import { supabase } from "@/supabase";
 
 export default {
 	name: "Navbar",
@@ -207,12 +211,6 @@ export default {
 		$route(to, from) {
 			this.isOpen = false;
 		},
-		authUser: function (newVal, oldVal) {
-			this.isLoggedIn = newVal != null ? true : false;
-		},
-		"$store.state.cubeLifeMode": function (newVal, oldVal) {
-			this.cubeLifeMode = newVal;
-		},
 	},
 
 	data() {
@@ -221,10 +219,26 @@ export default {
 			useHamburger: false,
 			width: 0,
 			isLoggedIn: false,
-			cubeLifeMode: false,
+			session: {},
 		};
 	},
 	methods: {
+		async loginWithDiscord() {
+			const { data, error } = await supabase.auth.signInWithOAuth({
+				provider: "discord",
+			});
+
+			if (error) {
+				console.log(error);
+			}
+
+			supabase.auth.onAuthStateChange((event, session) => {
+				console.log(event, session);
+			});
+		},
+		async logout() {
+			const { error } = await supabase.auth.signOut();
+		},
 		toggleNav() {
 			this.isOpen = !this.isOpen;
 
@@ -236,6 +250,10 @@ export default {
 		},
 	},
 	async mounted() {
+		supabase.auth.onAuthStateChange((event, session) => {
+			console.log(event, session);
+		});
+
 		window.addEventListener("resize", () => {
 			this.width = window.innerWidth;
 		});

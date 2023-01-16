@@ -1,14 +1,17 @@
 <template>
 	<Navbar />
 	<router-view></router-view>
+    <Footer />
 </template>
 
 <script>
 import Navbar from "./components/Navbar.vue";
+import Footer from "./components/Footer.vue";
 
 export default {
     components: {
-        Navbar
+        Navbar,
+        Footer
     },
 };
 </script>
@@ -26,19 +29,22 @@ export default {
 :root {
 	--navbar-height: 60px;
 
-	--primary: #5966f3;
-	--secondary: #7289da!important;
-	--accent: #0060a9 !important;
-	--accent2: #ebd40d !important;
+	--primary: #1f1f1f;
+	--secondary: #535353!important;
+	--accent: #005eff !important;
+	--accent2: #ff6000 !important;
+    --old-blurple: #7289DA !important;
+    --new-blurple: #5865F2 !important;
 
-	--primaryRGB: 89, 102, 243 !important;
-	--secondaryRGB: 114, 137, 218 !important;
-	--accentRGB: 0, 150, 219 !important;
-	--accent2RGB: 100, 100, 100 !important;
+	--primaryRGB: 31, 31, 31 !important;
+	--secondaryRGB: 83, 83, 83 !important;
+	--accentRGB: 0, 94, 255 !important;
+	--accent2RGB: 255, 96, 0 !important;
 
-	--primary-dark: #4e5d94 !important;
-	--secondary-dark: hsl(206, 100%, 25%) !important;
-    --accent2-dark: hsl(54, 90%, 30%) !important;
+	--primary-dark: hsl(0, 0%, 5%) !important;
+	--secondary-dark: hsl(0, 0%, 20%) !important;
+    --accent-dark: hsl(218, 100%, 30%) !important;
+    --accent2-dark: hsl(23, 100%, 30%) !important;
 
 	--red-gradient-left: linear-gradient(
 		to left,
@@ -122,7 +128,7 @@ h6 {
 */
 .dark-scroll-bar {
 	scrollbar-width: thin !important;
-	scrollbar-color: var(--red) transparent !important;
+	scrollbar-color: var(--accent) transparent !important;
 	overflow-y: auto !important;
 	/* margin-right: 5px !important; */
 }
@@ -137,10 +143,10 @@ h6 {
 }
 
 ::-webkit-scrollbar-thumb {
-	background-color: var(--primary) !important;
+	background-color: var(--accent) !important;
 	border-radius: 100px !important;
 	width: 4px !important;
-	border: 3px solid var(--primary) !important;
+	border: 3px solid var(--accent) !important;
 }
 
 .white-scroll-bar::-webkit-scrollbar,
@@ -259,7 +265,7 @@ p {
 .btn-primary:active,
 .btn-primary:focus,
 .btn-primary:active:focus {
-	background-color: var(--primary);
+	background-color: var(--accent);
 	color: rgb(255, 255, 255);
 	border: none;
 	outline: none;
@@ -268,7 +274,7 @@ p {
 }
 
 .btn-primary:hover {
-	background-color: var(--primary-dark) !important;
+	background-color: var(--accent-dark) !important;
 }
 
 .btn-secondary,
@@ -277,7 +283,7 @@ p {
 .btn-secondary:focus,
 .btn-secondary:active:focus {
 	background-color: var(--accent2);
-	color: black;
+	color: white;
 	border: none;
 	outline: none;
 	box-shadow: none;
@@ -285,7 +291,6 @@ p {
 }
 
 .btn-secondary:hover {
-    color: white;
 	background-color: var(--accent2-dark) !important;
 }
 
@@ -375,6 +380,13 @@ hr.accent {
 	opacity: 1;
 }
 
+hr.accent2 {
+	margin: 0 0 15px 0;
+	border-bottom: 4px solid var(--accent2);
+	border-radius: 20px;
+	opacity: 1;
+}
+
 .no-decor,
 .no-decor:hover,
 .no-decor:focus,
@@ -403,6 +415,30 @@ hr.accent {
 
 .link:hover {
 	color: var(--primary-dark);
+}
+
+.accent-link,
+.accent-link:focus,
+.accent-link:active,
+.accent-link:visited {
+	color: var(--accent);
+	font-weight: 500;
+}
+
+.accent-link:hover {
+	color: var(--accent-dark);
+}
+
+.accent2-link,
+.accent2-link:focus,
+.accent2-link:active,
+.accent2-link:visited {
+	color: var(--accent2);
+	font-weight: 500;
+}
+
+.accent2-link:hover {
+	color: var(--accent2-dark);
 }
 
 .primary-hr {
