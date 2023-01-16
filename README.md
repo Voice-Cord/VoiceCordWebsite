@@ -1,4 +1,4 @@
-# SoundCord Website
+# VoiceCord Website
 
 ## Project setup
 ```
