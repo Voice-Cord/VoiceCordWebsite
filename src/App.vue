@@ -32,19 +32,19 @@ export default {
 	--primary: #1f1f1f;
 	--secondary: #535353!important;
 	--accent: #005eff !important;
-	--accent2: #ff6000 !important;
+	--accent2: #08ff00 !important;
     --old-blurple: #7289DA !important;
     --new-blurple: #5865F2 !important;
 
 	--primaryRGB: 31, 31, 31 !important;
 	--secondaryRGB: 83, 83, 83 !important;
 	--accentRGB: 0, 94, 255 !important;
-	--accent2RGB: 255, 96, 0 !important;
+	--accent2RGB: 7, 255, 0 !important;
 
 	--primary-dark: hsl(0, 0%, 5%) !important;
 	--secondary-dark: hsl(0, 0%, 20%) !important;
     --accent-dark: hsl(218, 100%, 30%) !important;
-    --accent2-dark: hsl(23, 100%, 30%) !important;
+    --accent2-dark: hsl(118, 100%, 30%) !important;
 
 	--red-gradient-left: linear-gradient(
 		to left,
@@ -283,7 +283,7 @@ p {
 .btn-secondary:focus,
 .btn-secondary:active:focus {
 	background-color: var(--accent2);
-	color: white;
+	color: black;
 	border: none;
 	outline: none;
 	box-shadow: none;
@@ -291,6 +291,7 @@ p {
 }
 
 .btn-secondary:hover {
+    color: white;
 	background-color: var(--accent2-dark) !important;
 }
 

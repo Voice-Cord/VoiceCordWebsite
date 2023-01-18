@@ -111,7 +111,7 @@ export default {
 }
 
 .top-bg {
-	background-image: url("../assets/img/CoolBG.jpg"),
+	background-image: url("../assets/img/Footer.jpg"),
 		linear-gradient(to right, rgb(25, 25, 25), rgba(25, 25, 25, 0.322));
 	background-blend-mode: overlay;
 	background-size: cover;
@@ -139,7 +139,7 @@ export default {
 }
 
 #largeFooter .footer-content {
-	background-color: #fafafa;
+	background-color: #0e0e0e;
 	height: 150px;
 	z-index: 10;
 	left: 50%;

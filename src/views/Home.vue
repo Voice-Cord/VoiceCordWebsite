@@ -1,7 +1,7 @@
 <template>
 	<SkewBox
 		:rightBG="{
-			backgroundImage: `url(${require('@/assets/img/Microphone/OrangeBlueMic.jpg')})`,
+			backgroundImage: `url(${require('@/assets/img/Microphone/GreenBlueMicrophone.jpg')})`,
 			'background-position': 'top',
 			'background-size': 'cover',
 			'background-repeat': 'none',
