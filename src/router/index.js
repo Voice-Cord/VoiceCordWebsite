@@ -19,6 +19,11 @@ const routes = [
     component: () => import('../views/Docs.vue')
   },
   {
+    path: '/invite',
+    name: 'Invite',
+    component: () => import('../views/Invite.vue')
+  },
+  {
     path: '/:pathMatch(.*)',
         name: 'NotFound',
         component: NotFound,

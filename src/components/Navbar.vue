@@ -44,10 +44,7 @@
                                 </div>
                                 <div class="nav-item">
                                     <div class="nav-link">
-                                        <a href="https://discord.com/api/oauth2/authorize?client_id=1061725454366687232&permissions=8&scope=bot"
-                                            class="btn btn-primary btn-md" target="_blank">
-                                            Invite
-                                        </a>
+                                        <router-link to="/invite" class="btn btn-primary btn-md">Invite</router-link>
                                     </div>
                                 </div>
                             </div>
@@ -80,15 +77,16 @@
                                         <img :src='(authUser)
                                             ? userAvatar
                                             : "https://www.knack.com/images/about/default-profile.png"
-                                        ' style='height: 40px; border: 2px solid var(--FSCred); border-radius: 50%; background-color: var(--FSCgrey)'>
+                                        '
+                                            style='height: 40px; border: 2px solid var(--FSCred); border-radius: 50%; background-color: var(--FSCgrey)'>
                                     </div>
                                 </div>
 
                                 <div class="nav-item" v-if="false">
                                     <Dropdown
                                         :header="`<img src='${authUser && authUser.pfp
-                                            ? authUser.pfp
-                                            : 'https://www.knack.com/images/about/default-profile.png'
+                                        ? authUser.pfp
+                                        : 'https://www.knack.com/images/about/default-profile.png'
                                         }' style='height: 40px; border: 2px solid var(--FSCred); border-radius: 50%; background-color: var(--FSCgrey)'>`"
                                         :useRouterLinks="true" :width="'120px'" :pageWidth="width" :dropContent="
                                             authUser &&
@@ -204,7 +202,7 @@ export default {
             console.log("AUTHSTATECHANGED", event, session);
             this.isLoggedIn = (event == "SIGNED_IN");
             this.authUser = session;
-            
+
             if (this.isLoggedIn) {
                 this.userAvatar = this.authUser.user.identities[0].identity_data.avatar_url
             }
