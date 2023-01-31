@@ -63,17 +63,17 @@
                             <div class="navbar-nav">
                                 <div class="nav-item" v-if="!isLoggedIn">
                                     <div class="nav-link">
-                                        <button @click="loginWithDiscord" class="btn btn-secondary btn-md">
+                                        <router-link to="/login" class="btn btn-secondary btn-md">
                                             Login
-                                        </button>
+                                        </router-link>
                                     </div>
                                 </div>
 
                                 <div class="nav-item" v-if="isLoggedIn">
                                     <div class="nav-link">
-                                        <button @click="logout" class="btn btn-secondary btn-md">
+                                        <router-link to="/logout" class="btn btn-secondary btn-md">
                                             Log Out
-                                        </button>
+                                        </router-link>
                                         <img :src='(authUser)
                                             ? userAvatar
                                             : "https://www.knack.com/images/about/default-profile.png"

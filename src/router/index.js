@@ -24,6 +24,22 @@ const routes = [
     component: () => import('../views/Invite.vue')
   },
   {
+    path: '/upgrade',
+    name: 'Upgrade',
+    component: () => import('../views/Upgrade.vue'),
+    meta: {requiresAuth: true }
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('../views/Login.vue')
+  },
+  {
+    path: '/logout',
+    name: 'Logout',
+    component: () => import('../views/Logout.vue')
+  },
+  {
     path: '/:pathMatch(.*)',
         name: 'NotFound',
         component: NotFound,
@@ -34,5 +50,19 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+
+router.beforeEach((to, from) => {
+    // instead of having to check every route record with
+    // to.matched.some(record => record.meta.requiresAuth)
+    if (to.meta.requiresAuth && !auth.isLoggedIn()) {
+      // this route requires auth, check if logged in
+      // if not, redirect to login page.
+      return {
+        path: '/login',
+        // save the location we were at to come back later
+        query: { redirect: to.fullPath },
+      }
+    }
+  })
 
 export default router
