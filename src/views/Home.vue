@@ -124,7 +124,9 @@ export default {
     overflow-y: visible;
     overflow-x: hidden;
     perspective: 10px;
-    background-image: url('../assets/img/HomePage/BGBG.jpg');
+    background-image: url('../assets/img/v2.jpg');
+    background-size: cover;
+    backdrop-filter: blur(10px);
 }
 
 header {
@@ -138,8 +140,10 @@ header {
 }
 
 .background {
-    transform: translateZ(-10px) scale(2.2);
+    transform: translateX(-5px) translateZ(-10px) scale(2);
     object-position: right;
+    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
 .foreground {

@@ -1,7 +1,7 @@
 <template>
 	<div
 		class="h-100 w-100 d-flex"
-		style="align-items: center; justify-content: center"
+		style="height: 100vh!important; align-items: center; justify-content: center"
 	>
 		<h1 class="title">Redirecting...</h1>
 	</div>

@@ -1,7 +1,7 @@
 <template>
 	<div class="nav-item">
 		<div class="dropdown">
-			<span class="nav-link dropbtn" @click="toggleDropdown">
+			<span class="nav-link dropbtn" :style="`width: ${width}!important;`" @click="toggleDropdown">
 				<span v-html="header"></span>
 				<i
 					v-if="useArrow"
@@ -157,6 +157,11 @@ export default {
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
 	color: white;
+}
+
+.dropdown:hover .nav-link {
+    background-color: hsla(218, 100%, 30%, 0.7);
+    backdrop-filter: blur(3px);
 }
 
 @media (max-width: 1199.98px) {
