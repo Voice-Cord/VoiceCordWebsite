@@ -59,17 +59,17 @@
 									>
 								</div>
 
-								<div class="nav-item">
+								<!-- <div class="nav-item">
 									<router-link
 										to="/documentation"
 										class="nav-link"
 										>Docs</router-link
 									>
-								</div>
+								</div> -->
 
 								<div class="nav-item">
-									<router-link to="/support" class="nav-link"
-										>Support</router-link
+									<a href="https://discord.com/invite/dQxrxkhBBz" target="_blank" class="nav-link"
+										>Support</a
 									>
 								</div>
 								<div class="nav-item">

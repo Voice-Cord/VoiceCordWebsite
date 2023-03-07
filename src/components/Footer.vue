@@ -20,13 +20,13 @@
 						<div class="col-3">
 							<h4 class="accent">Invite VoiceCord</h4>
 							<hr class="accent" />
-                            <a href="https://discord.com/api/oauth2/authorize?client_id=1061725454366687232&permissions=8&scope=bot" class="accent-link" target="_blank">https://www.discord.com</a>
+                            <a href="https://www.voicecord.app/invite" class="accent-link" target="_blank">https://www.voicecord.app/invite</a>
 						</div>
 
 						<div class="col-3">
 							<h4 class="accent2">Discord Server</h4>
 							<hr class="accent2" />
-                            <a href="https://discord.gg/nJyH9HNzaM" class="accent2-link" target="_blank">https://discord.gg/nJyH9HNzaM</a>
+                            <a href="https://discord.gg/dQxrxkhBBz" class="accent2-link" target="_blank">https://discord.gg/dQxrxkhBBz</a>
 						</div>
 
 						<div class="col-3">
@@ -127,7 +127,7 @@ export default {
 	background-color: var(--primary);
 	position: relative;
 	z-index: -1;
-	height: 175px;
+	height: 200px;
 }
 
 .bottom-bg .container {
@@ -136,6 +136,7 @@ export default {
 	left: 50%;
 	transform: translateX(-50%);
 	text-align: center;
+    padding-bottom: 20px;
 }
 
 #largeFooter .footer-content {
