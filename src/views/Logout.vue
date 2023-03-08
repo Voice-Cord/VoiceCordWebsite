@@ -7,6 +7,7 @@ export default {
 		localStorage.removeItem("discord.refreshToken");
 		localStorage.removeItem("discord.tokenType");
         this.$store.commit("setAuth", "");
+        this.$router.push("/");
 	},
 };
 </script>

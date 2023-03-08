@@ -1,5 +1,5 @@
 <template>
-    <Navbar />
+    <Navbar :key="authReloadKey"/>
     <router-view></router-view>
     <!-- <Footer /> -->
 </template>
@@ -13,6 +13,16 @@ export default {
         Navbar,
         Footer
     },
+    watch: {
+        "$store.state.auth": function(newVal, oldVal) {
+            this.authReloadKey++;
+        }
+    },
+    data() {
+        return {
+            authReloadKey: 0
+        }
+    }
 };
 </script>
 

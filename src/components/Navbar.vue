@@ -128,7 +128,7 @@
 								<div class="nav-item" v-if="isLoggedIn">
 									<Dropdown
 										:header="`<img src='${
-											authUser
+											userAvatar
 												? userAvatar
 												: 'https://www.knack.com/images/about/default-profile.png'
 										}' style='height: 40px; border: 2px solid var(--accent2); border-radius: 50%; background-color: var(--accent)'>`"
@@ -192,18 +192,6 @@ export default {
 		};
 	},
 	methods: {
-		async loginWithDiscord() {
-			const { data, error } = await supabase.auth.signInWithOAuth({
-				provider: "discord",
-			});
-
-			if (error) {
-				console.log(error);
-			}
-		},
-		async logout() {
-			const { error } = await supabase.auth.signOut();
-		},
 		toggleNav() {
 			this.isOpen = !this.isOpen;
 
@@ -215,20 +203,12 @@ export default {
 		},
 	},
 	async mounted() {
-		supabase.auth.onAuthStateChange(async (event, session) => {
-			console.log("AUTHSTATECHANGED", event, session);
-			this.isLoggedIn = event == "SIGNED_IN";
-			this.authUser = session;
-
-            console.log(this.authUser.access_token);
-
-			if (this.isLoggedIn) {
-				this.userAvatar =
-					this.authUser.user.identities[0].identity_data.avatar_url;
-			}
-
-			// console.log(this.authUser.user.identities[0].identity_data.avatar_url);
-		});
+        const user = this.$store.getters.getAuth;
+        if(user) {
+            this.authUser = user;
+            this.isLoggedIn = true;
+            this.userAvatar = this.authUser.avatar;
+        }
 
 		window.addEventListener("resize", () => {
 			this.width = window.innerWidth;

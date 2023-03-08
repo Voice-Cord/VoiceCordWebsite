@@ -200,39 +200,43 @@ export default {
 	data() {
 		return {};
 	},
+    methods: {
+        async saveUser() {
+            const options = {
+                method: "GET",
+                headers: {
+                    Authorization: localStorage.getItem("discord.tokenType") + " " + localStorage.getItem("discord.accessToken"),
+                }
+            }
+
+			const res = await fetch(
+				"https://discord.com/api/users/@me",
+				options
+			).catch((error) => console.log("error", error));
+
+            if(!res) return;
+
+            const user = await res.json();
+            if(!user) return;
+
+            if(!user.avatar) {
+                user.avatar = `https://cdn.discordapp.com/embed/avatars/${user.discriminator % 5}.png`;
+            } else {
+                user.avatar = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}`;
+            }
+
+            // Add user data to store
+            this.$store.commit("setAuth", user);
+        }
+    },
 	async mounted() {
+
 		// Check for url parameter "code"
 		const code = this.$route.query.code;
 
 		// If access token exists in local storage, get user data from Discord API
 		if (localStorage.getItem("discord.accessToken")) {
-			var myHeaders = new Headers();
-
-			myHeaders.append(
-				"Authorization",
-				localStorage.getItem("discord.tokenType") +
-					" " +
-					localStorage.getItem("discord.accessToken")
-			);
-
-			var urlencoded = new URLSearchParams();
-
-			var requestOptions = {
-				method: "GET",
-				headers: myHeaders,
-				body: urlencoded,
-				redirect: "follow",
-			};
-
-			const res = await fetch(
-				"https://discord.com/api/users/@me",
-				requestOptions
-			).catch((error) => console.log("error", error));
-
-            const data = await res.json();
-
-            // Add user data to store
-            this.$store.commit("setAuth", data);
+            this.saveUser();
 		}
 
 		// If code URL param exists, get access token from Discord API and save it into local storage
@@ -266,14 +270,16 @@ export default {
 			).catch((err) => {
 				console.log(err);
 			});
+            if(!res) return;
 
 			const data = await res.json();
+            if(!data) return;
 
 			localStorage.setItem("discord.accessToken", data.access_token);
 			localStorage.setItem("discord.refreshToken", data.refresh_token);
 			localStorage.setItem("discord.tokenType", data.token_type);
 
-			console.log(data);
+            this.saveUser();
 		}
 	},
 };
