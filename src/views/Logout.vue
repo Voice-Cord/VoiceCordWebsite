@@ -5,8 +5,9 @@ export default {
 	async mounted() {
 		localStorage.removeItem("discord.accessToken");
 		localStorage.removeItem("discord.refreshToken");
+        localStorage.removeItem("discord.expiresIn");
 		localStorage.removeItem("discord.tokenType");
-        this.$store.commit("setAuth", "");
+        this.$store.commit("setAuth", null);
         this.$router.push("/");
 	},
 };

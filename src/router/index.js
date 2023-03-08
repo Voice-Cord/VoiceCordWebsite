@@ -58,7 +58,8 @@ const router = createRouter({
     routes
 })
 
-const isLoggedIn = Boolean(localStorage.getItem("discord.accessToken"));
+const isLoggedIn = localStorage.getItem("discord.accessToken") != null;
+console.log("isLoggedIn: " + isLoggedIn);
 
 router.beforeEach((to, from) => {
     // instead of having to check every route record with

@@ -75,11 +75,6 @@
 										>Support</a
 									>
 								</div>
-								<div class="nav-item" v-if="isLoggedIn">
-									<router-link to="/servers" class="nav-link"
-										>Servers</router-link
-									>
-								</div>
 								<div class="nav-item">
 									<div class="nav-link">
 										<router-link
@@ -173,7 +168,6 @@
 
 <script>
 import Dropdown from "./Dropdown.vue";
-import { supabase } from "@/supabase";
 
 export default {
 	name: "Navbar",

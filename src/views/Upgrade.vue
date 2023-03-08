@@ -1,11 +1,9 @@
 <template>
-	<div class="cool-background">
-		<div class="overlay"></div>
+	<div style="padding-top: 150px;">
 		<div
 			class="container px-3 py-5"
 			style="
 				background-color: rgba(255, 255, 255, 0.6);
-				margin-top: 150px;
 				border-radius: 1rem;
 			"
 		>
@@ -37,13 +35,20 @@
 							align-content: flex-end;
 						"
 					>
-						<a
-							href="https://buy.stripe.com/bIYaFGewDeIscNi3cd"
-							target="_blank"
-							class="btn btn-lg btn-primary w-100"
-							style="align-self: flex-end"
-							>Buy Individual Subscription</a
-						>
+						<div style="align-self: flex-end">
+							<a
+								:href="`https://buy.stripe.com/eVa9BC3RZgQA00w3ce?client_reference_id=${authUser.id}`"
+								target="_blank"
+								class="btn btn-md btn-primary w-100 mb-2"
+								>Monthly Individual Subscription</a
+							>
+							<a
+								:href="`https://buy.stripe.com/6oE4hi74bascfZu5kp?client_reference_id=${authUser.id}`"
+								target="_blank"
+								class="btn btn-md btn-primary w-100"
+								>Yearly Individual Subscription</a
+							>
+						</div>
 					</div>
 				</div>
 				<div
@@ -66,13 +71,13 @@
 							align-content: flex-end;
 						"
 					>
-						<a
-							href="https://buy.stripe.com/8wM29a0FN9o83cIdQQ"
-							target="_blank"
-							class="btn btn-lg btn-primary w-100"
+						<router-link
+							class="btn btn-md btn-primary w-100"
 							style="align-self: flex-end"
-							>Buy Server Subscription</a
+							to="/servers"
 						>
+                        Select Server...
+						</router-link>
 					</div>
 				</div>
 			</div>
@@ -81,9 +86,25 @@
 </template>
 
 <script>
-export default {};
+export default {
+	data() {
+		return {
+			authUser: {
+				id: "",
+			},
+		};
+	},
+	async mounted() {
+		const user = this.$store.getters.getAuth;
+
+		if (user) {
+			this.authUser = user;
+		} else {
+			this.$router.push({ name: "Home" });
+		}
+	},
+};
 </script>
 
 <style>
-
 </style>

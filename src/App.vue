@@ -89,6 +89,7 @@ body {
     color: rgb(20, 20, 20);
     font-family: "Montserrat", sans-serif;
     line-height: 1.75;
+    min-height: 100vh;
 }
 
 h1,
