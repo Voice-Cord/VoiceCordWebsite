@@ -9,7 +9,7 @@ const accessTokenKey = "discord.accessToken"
 
 export async function discordRequest(path, request) {
   if(localStorage.getItem('discord.expiresAt') > Date.now() - accessTokenUpdateBeforeExpirationTime) {
-    refreshLogin();
+    await refreshLogin();
   }
 
   const res = await fetch("https://discord.com/api/" + path, request).catch(console.log);
