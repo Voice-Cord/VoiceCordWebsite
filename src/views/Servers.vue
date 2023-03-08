@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { discordRequest } from '@/functions/discordApi';
+import { discordGetRequest } from '@/functions/discordApi';
 
 export default {
 	data() {
@@ -61,19 +61,11 @@ export default {
         const yearlySubscriptionLink = "https://buy.stripe.com/6oEdRS9cj6bWaFa004";
 
 		if (user) {
-			const guilds = await discordRequest('users/@me/guilds', {
-				method: "GET",
-				headers: {
-					Authorization:
-						"Bearer " + localStorage.getItem("discord.accessToken"),
-				},
-				fillIdAndSecret: false,
-			})
+			const guilds = await discordGetRequest('users/@me/guilds')
 			if (!guilds) return;
 
 			this.guilds = guilds;
 
-			console.log(guilds);
 			this.guilds.forEach((guild) => {
 				if (guild.icon) {
 					guild.icon = `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`;

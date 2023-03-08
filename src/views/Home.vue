@@ -189,7 +189,7 @@
 import Parallax from "@/components/Parallax.vue";
 import SkewBox from "@/components/SkewBox.vue";
 import Footer from "@/components/Footer.vue";
-import { discordRequest, login } from '@/functions/discordApi';
+import { discordGetRequest, login } from '@/functions/discordApi';
 
 export default {
 	components: {
@@ -202,15 +202,7 @@ export default {
 	},
 	methods: {
 		async saveUser() {
-			const user = await discordRequest('users/@me', {
-						method: "GET",
-						headers: {
-							Authorization:
-								localStorage.getItem("discord.tokenType") +
-								" " +
-								localStorage.getItem("discord.accessToken"),
-						},
-			})
+			const user = await discordGetRequest('users/@me')
 			if (!user) return user;
 
 			if (!user.avatar) {

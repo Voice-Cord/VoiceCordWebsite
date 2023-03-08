@@ -7,16 +7,15 @@ const expiresAtKey = "discord.expiresAt";
 const tokenTypeKey = "discord.tokenType";
 const accessTokenKey = "discord.accessToken"
 
-export async function discordRequest(path, request) {
-  if(localStorage.getItem('discord.expiresAt') > Date.now() - accessTokenUpdateBeforeExpirationTime) {
-    await refreshLogin();
-  }
-
-  const res = await fetch("https://discord.com/api/" + path, request).catch(console.log);
-  if (!res) return res;
-
-  const data = await res.json().catch(console.log);
-  return data;
+export async function discordGetRequest(path) {
+  const data = await discordRequest(path, {
+    method: "GET",
+    headers: {
+      Authorization:
+        localStorage.getItem(tokenTypeKey) + " " + localStorage.getItem("discord.accessToken"),
+    },
+  })
+  return data
 }
 
 export async function login() {
@@ -36,6 +35,18 @@ export async function login() {
   if (!data) return data;
 
   saveLoginData(data);
+}
+
+async function discordRequest(path, request) {
+  if(localStorage.getItem('discord.expiresAt') > Date.now() - accessTokenUpdateBeforeExpirationTime) {
+    await refreshLogin();
+  }
+
+  const res = await fetch("https://discord.com/api/" + path, request).catch(console.log);
+  if (!res) return res;
+
+  const data = await res.json().catch(console.log);
+  return data;
 }
 
 async function refreshLogin() {
