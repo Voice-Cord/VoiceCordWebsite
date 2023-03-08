@@ -68,8 +68,16 @@
 								</div> -->
 
 								<div class="nav-item">
-									<a href="https://discord.com/invite/dQxrxkhBBz" target="_blank" class="nav-link"
+									<a
+										href="https://discord.com/invite/dQxrxkhBBz"
+										target="_blank"
+										class="nav-link"
 										>Support</a
+									>
+								</div>
+								<div class="nav-item" v-if="isLoggedIn">
+									<router-link to="/servers" class="nav-link"
+										>Servers</router-link
 									>
 								</div>
 								<div class="nav-item">
@@ -87,7 +95,11 @@
 
 					<div
 						class="col-3"
-						style="display: flex; justify-content: end; padding-right: 2px;"
+						style="
+							display: flex;
+							justify-content: end;
+							padding-right: 2px;
+						"
 					>
 						<div
 							class="nav-items"
@@ -113,17 +125,20 @@
 									</div>
 								</div>
 
-                                <div class="nav-item" v-if="isLoggedIn">
-                                    <div class="nav-link">
+								<div class="nav-item" v-if="isLoggedIn">
+									<div class="nav-link">
 										<router-link
 											to="/upgrade"
 											class="btn btn-secondary btn-md"
-                                            style="border: 2px solid var(--accent2-dark)"
+											style="
+												border: 2px solid
+													var(--accent2-dark);
+											"
 										>
 											Upgrade to Premium
 										</router-link>
 									</div>
-                                </div>
+								</div>
 
 								<div class="nav-item" v-if="isLoggedIn">
 									<Dropdown
@@ -203,12 +218,12 @@ export default {
 		},
 	},
 	async mounted() {
-        const user = this.$store.getters.getAuth;
-        if(user) {
-            this.authUser = user;
-            this.isLoggedIn = true;
-            this.userAvatar = this.authUser.avatar;
-        }
+		const user = this.$store.getters.getAuth;
+		if (user) {
+			this.authUser = user;
+			this.isLoggedIn = true;
+			this.userAvatar = this.authUser.avatar;
+		}
 
 		window.addEventListener("resize", () => {
 			this.width = window.innerWidth;

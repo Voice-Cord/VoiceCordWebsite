@@ -58,12 +58,7 @@ const router = createRouter({
     routes
 })
 
-var isLoggedIn = false;
-
-supabase.auth.onAuthStateChange(async (event, session) => {
-    console.log("NAVBAR AUTHSTATECHANGED", event, session);
-    isLoggedIn = (event == "SIGNED_IN");
-});
+const isLoggedIn = localStorage.getItem("accessToken") == true;
 
 router.beforeEach((to, from) => {
     // instead of having to check every route record with
