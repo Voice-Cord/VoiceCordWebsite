@@ -47,6 +47,8 @@
 </template>
 
 <script>
+import { discordRequest } from '@/functions/discordApi';
+
 export default {
 	data() {
 		return {
@@ -57,24 +59,16 @@ export default {
 		const user = this.$store.getters.getAuth;
         const monthlySubscriptionLink = "https://buy.stripe.com/6oE8xy9cjgQAdRm9AD";
         const yearlySubscriptionLink = "https://buy.stripe.com/6oEdRS9cj6bWaFa004";
+
 		if (user) {
-			const item = {
+			const guilds = await discordRequest('users/@me/guilds', {
 				method: "GET",
 				headers: {
 					Authorization:
 						"Bearer " + localStorage.getItem("discord.accessToken"),
 				},
-			};
-
-            console.log("USER ON SERVER PAGE", user);
-
-			const res = await fetch(
-				"https://discord.com/api/users/@me/guilds",
-				item
-			).catch((e) => console.log(e));
-			if (!res) return;
-
-			const guilds = await res.json().catch((e) => console.log(e));
+				fillIdAndSecret: false,
+			})
 			if (!guilds) return;
 
 			this.guilds = guilds;

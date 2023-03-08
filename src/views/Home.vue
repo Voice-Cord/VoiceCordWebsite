@@ -189,7 +189,7 @@
 import Parallax from "@/components/Parallax.vue";
 import SkewBox from "@/components/SkewBox.vue";
 import Footer from "@/components/Footer.vue";
-import { supabase } from "@/supabase";
+import { discordRequest, login } from '@/functions/discordApi';
 
 export default {
 	components: {
@@ -202,25 +202,16 @@ export default {
 	},
 	methods: {
 		async saveUser() {
-			const options = {
-				method: "GET",
-				headers: {
-					Authorization:
-						localStorage.getItem("discord.tokenType") +
-						" " +
-						localStorage.getItem("discord.accessToken"),
-				},
-			};
-
-			const res = await fetch(
-				"https://discord.com/api/users/@me",
-				options
-			).catch((error) => console.log("error", error));
-
-			if (!res) return;
-
-			const user = await res.json();
-			if (!user) return;
+			const user = await discordRequest('users/@me', {
+						method: "GET",
+						headers: {
+							Authorization:
+								localStorage.getItem("discord.tokenType") +
+								" " +
+								localStorage.getItem("discord.accessToken"),
+						},
+			})
+			if (!user) return user;
 
 			if (!user.avatar) {
 				user.avatar = `https://cdn.discordapp.com/embed/avatars/${
@@ -245,45 +236,8 @@ export default {
 
 		// If code URL param exists, get access token from Discord API and save it into local storage
 		else if (code) {
-			var myHeaders = new Headers();
-			myHeaders.append(
-				"Content-Type",
-				"application/x-www-form-urlencoded"
-			);
-
-			var urlencoded = new URLSearchParams();
-			urlencoded.append("client_id", "1061725454366687232");
-			urlencoded.append(
-				"client_secret",
-				"5v1XaB_uJgrshkPXNm9DJrwSfTne33An"
-			);
-			urlencoded.append("grant_type", "authorization_code");
-			urlencoded.append("code", code);
-			urlencoded.append("redirect_uri", "http://localhost:8080");
-
-			var requestOptions = {
-				method: "POST",
-				headers: myHeaders,
-				body: urlencoded,
-				redirect: "follow",
-			};
-
-			const res = await fetch(
-				"https://discord.com/api/oauth2/token",
-				requestOptions
-			).catch((err) => {
-				console.log(err);
-			});
-			if (!res) return;
-
-			const data = await res.json();
-			if (!data) return;
-
-            console.log(data);
-			localStorage.setItem("discord.accessToken", data.access_token);
-			localStorage.setItem("discord.refreshToken", data.refresh_token);
-			localStorage.setItem("discord.tokenType", data.token_type);
-
+			const data = await login();
+			if(!data) return;
 			this.saveUser();
 		}
 	},
