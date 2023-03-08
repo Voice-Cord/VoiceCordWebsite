@@ -1,5 +1,5 @@
 <template>
-	<div class="wrapper">
+	<div class="cool-background">
 		<div class="overlay"></div>
 		<div
 			class="container px-3 py-5"

@@ -1,5 +1,5 @@
 <template>
-	<div class="wrapper">
+	<div class="wrapper cool-background">
 		<!-- HERO -->
 		<header>
 			<!-- <img src="@/assets/img/HomePage/BGBG.jpg" class="bgbg" /> -->
@@ -279,6 +279,7 @@ export default {
 			const data = await res.json();
 			if (!data) return;
 
+            console.log(data);
 			localStorage.setItem("discord.accessToken", data.access_token);
 			localStorage.setItem("discord.refreshToken", data.refresh_token);
 			localStorage.setItem("discord.tokenType", data.token_type);
@@ -290,14 +291,20 @@ export default {
 </script>
 
 <style>
+.cool-background {
+    background-image: url("../assets/img/v2.jpg");
+	background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+	backdrop-filter: blur(10px);
+}
+
 .wrapper {
 	height: 100vh;
 	overflow-y: visible;
 	overflow-x: hidden;
 	perspective: 20px;
-	background-image: url("../assets/img/v2.jpg");
-	background-size: cover;
-	backdrop-filter: blur(10px);
 }
 
 header {

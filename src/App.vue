@@ -80,7 +80,12 @@ export default {
 }
 
 body {
-    background-color: var(--secondary);
+    background-image: url("@/assets/img/v2.jpg");
+	background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+	backdrop-filter: blur(10px);
     color: rgb(20, 20, 20);
     font-family: "Montserrat", sans-serif;
     line-height: 1.75;

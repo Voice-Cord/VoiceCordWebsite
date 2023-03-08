@@ -1,21 +1,42 @@
 <template>
-	<div class="wrapper">
-		<div class="overlay"></div>
+	<div>
 		<div class="nav-pad">
 			<div class="container my-5">
 				<h1 class="white center">Servers</h1>
 				<div class="row gy-4">
-					<div v-for="guild in guilds" :key="guild" class="col-xl-3 col-md-6 col-12">
-						<div class="card" style="width: 18rem">
+					<div
+						v-for="guild in guilds"
+						:key="guild"
+						class="col-xl-3 col-md-6 col-12"
+					>
+						<div class="card" style="width: 18rem; box-shadow: rgba(0, 0, 0, 0.8) 0px 5px 15px;">
 							<img
 								class="card-img-top"
 								:src="guild.icon"
 								alt="Card image cap"
 							/>
 							<div class="card-body">
-								<p class="card-text" style="color: black">
-                                    {{ guild.name }}
-								</p>
+								<h6 class="card-text center" style="color: black">
+									{{ guild.name }}
+								</h6>
+								<div class="row block-center">
+									<div class="col-6">
+										<a
+											:href="guild.monthlySubscription"
+											target="_blank"
+											class="btn btn-md btn-primary w-100"
+											>Monthly</a
+										>
+									</div>
+									<div class="col-6">
+										<a
+											:href="guild.yearlySubscription"
+											target="_blank"
+											class="btn btn-md btn-primary w-100"
+											>Yearly</a
+										>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -27,39 +48,50 @@
 
 <script>
 export default {
-    data() {
-        return {
-            guilds: []
-        }
-    },
-    async mounted() {
+	data() {
+		return {
+			guilds: [],
+		};
+	},
+	async mounted() {
 		const user = this.$store.getters.getAuth;
-        if(user) {
-            const item = {
-                method: "GET",
-                headers: {
-                    Authorization: 'Bearer ' + localStorage.getItem('discord.accessToken')
-                }
-            }
+        const monthlySubscriptionLink = "https://buy.stripe.com/6oE8xy9cjgQAdRm9AD";
+        const yearlySubscriptionLink = "https://buy.stripe.com/6oEdRS9cj6bWaFa004";
+		if (user) {
+			const item = {
+				method: "GET",
+				headers: {
+					Authorization:
+						"Bearer " + localStorage.getItem("discord.accessToken"),
+				},
+			};
 
-            const res = await fetch('https://discord.com/api/users/@me/guilds', item).catch((e) => console.log(e));
-            if(!res) return;
+            console.log("USER ON SERVER PAGE", user);
 
-            const guilds = await res.json().catch((e) => console.log(e));
-            if(!guilds) return;
+			const res = await fetch(
+				"https://discord.com/api/users/@me/guilds",
+				item
+			).catch((e) => console.log(e));
+			if (!res) return;
 
-            this.guilds = guilds;
+			const guilds = await res.json().catch((e) => console.log(e));
+			if (!guilds) return;
 
-            console.log(guilds);
-            this.guilds.forEach((guild) => {
-                if(guild.icon) {
-                    guild.icon = `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`
-                } else {
-                    guild.icon = require('@/assets/img/Logo/TransparentBGFace.png')
-                }
-            });
-        }
-    }
+			this.guilds = guilds;
+
+			console.log(guilds);
+			this.guilds.forEach((guild) => {
+				if (guild.icon) {
+					guild.icon = `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`;
+				} else {
+					guild.icon = require("@/assets/img/Logo/TransparentBGFace.png");
+				}
+
+                guild.monthlySubscription = `${monthlySubscriptionLink}?client_reference_id=${user.id}|${guild.id}`;
+                guild.yearlySubscription = `${yearlySubscriptionLink}?client_reference_id=${user.id}|${guild.id}`;
+			});
+		}
+	},
 };
 </script>
 
