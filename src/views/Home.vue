@@ -198,19 +198,83 @@ export default {
 		Footer,
 	},
 	data() {
-		return {
-			data: "",
-		};
+		return {};
 	},
 	async mounted() {
-		const { data, error } = await supabase.from("test").select("data");
+		// Check for url parameter "code"
+		const code = this.$route.query.code;
 
-		if (error) {
-			console.log("AYO THIS IS AN ERROR", error);
-			return;
+		// If access token exists in local storage, get user data from Discord API
+		if (localStorage.getItem("discord.accessToken")) {
+			var myHeaders = new Headers();
+
+			myHeaders.append(
+				"Authorization",
+				localStorage.getItem("discord.tokenType") +
+					" " +
+					localStorage.getItem("discord.accessToken")
+			);
+
+			var urlencoded = new URLSearchParams();
+
+			var requestOptions = {
+				method: "GET",
+				headers: myHeaders,
+				body: urlencoded,
+				redirect: "follow",
+			};
+
+			const res = await fetch(
+				"https://discord.com/api/users/@me",
+				requestOptions
+			).catch((error) => console.log("error", error));
+
+            const data = await res.json();
+
+            // Add user data to store
+            this.$store.commit("setAuth", data);
 		}
 
-		this.data = data;
+		// If code URL param exists, get access token from Discord API and save it into local storage
+		else if (code) {
+			var myHeaders = new Headers();
+			myHeaders.append(
+				"Content-Type",
+				"application/x-www-form-urlencoded"
+			);
+
+			var urlencoded = new URLSearchParams();
+			urlencoded.append("client_id", "1061725454366687232");
+			urlencoded.append(
+				"client_secret",
+				"5v1XaB_uJgrshkPXNm9DJrwSfTne33An"
+			);
+			urlencoded.append("grant_type", "authorization_code");
+			urlencoded.append("code", code);
+			urlencoded.append("redirect_uri", "http://localhost:8080");
+
+			var requestOptions = {
+				method: "POST",
+				headers: myHeaders,
+				body: urlencoded,
+				redirect: "follow",
+			};
+
+			const res = await fetch(
+				"https://discord.com/api/oauth2/token",
+				requestOptions
+			).catch((err) => {
+				console.log(err);
+			});
+
+			const data = await res.json();
+
+			localStorage.setItem("discord.accessToken", data.access_token);
+			localStorage.setItem("discord.refreshToken", data.refresh_token);
+			localStorage.setItem("discord.tokenType", data.token_type);
+
+			console.log(data);
+		}
 	},
 };
 </script>
@@ -283,5 +347,16 @@ section {
 
 .card {
 	border: 0 !important;
+}
+
+.overlay {
+	background-color: rgba(0, 0, 0, 0.6);
+	backdrop-filter: blur(5px);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
 }
 </style>

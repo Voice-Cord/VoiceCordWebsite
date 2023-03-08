@@ -220,6 +220,8 @@ export default {
 			this.isLoggedIn = event == "SIGNED_IN";
 			this.authUser = session;
 
+            console.log(this.authUser.access_token);
+
 			if (this.isLoggedIn) {
 				this.userAvatar =
 					this.authUser.user.identities[0].identity_data.avatar_url;

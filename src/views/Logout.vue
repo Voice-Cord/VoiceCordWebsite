@@ -1,18 +1,15 @@
-<template>
-
-</template>
+<template></template>
 
 <script>
-import { supabase } from "@/supabase";
-
 export default {
-    async mounted() {
-        const { error } = await supabase.auth.signOut();
-        this.$router.push("/")
-    }
-}
+	async mounted() {
+		localStorage.removeItem("discord.accessToken");
+		localStorage.removeItem("discord.refreshToken");
+		localStorage.removeItem("discord.tokenType");
+        this.$store.commit("setAuth", "");
+	},
+};
 </script>
 
 <style>
-
 </style>
