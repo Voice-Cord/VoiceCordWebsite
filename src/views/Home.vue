@@ -228,7 +228,7 @@ export default {
 
 		// If code URL param exists, get access token from Discord API and save it into local storage
 		else if (code) {
-			const data = await login();
+			const data = await login(code);
 			if(!data) return;
 			this.saveUser();
 		}
