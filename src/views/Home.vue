@@ -189,7 +189,8 @@
 import Parallax from "@/components/Parallax.vue";
 import SkewBox from "@/components/SkewBox.vue";
 import Footer from "@/components/Footer.vue";
-import { discordGetRequest, login } from '@/functions/discordApi';
+import { discordApi } from '@/classes/discordApi';
+import { authService } from '@/classes/authService';
 
 export default {
 	components: {
@@ -202,7 +203,7 @@ export default {
 	},
 	methods: {
 		async saveUser() {
-			const user = await discordGetRequest('users/@me')
+			const user = await discordApi.getRequest('users/@me')
 			if (!user) return user;
 
 			if (!user.avatar) {
@@ -214,7 +215,8 @@ export default {
 			}
 
 			// Add user data to store
-			this.$store.commit("setAuth", user);
+			console.log("save user: " + user)
+			this.$store.commit("setAuthUser", user);
 		},
 	},
 	async mounted() {
@@ -222,13 +224,13 @@ export default {
 		const code = this.$route.query.code;
 
 		// If access token exists in local storage, get user data from Discord API
-		if (localStorage.getItem("discord.accessToken")) {
+		if (authService.isLoggedIn()) {
 			this.saveUser();
 		}
 
 		// If code URL param exists, get access token from Discord API and save it into local storage
 		else if (code) {
-			const data = await login(code);
+			const data = await authService.login(code);
 			if(!data) return;
 			this.saveUser();
 		}

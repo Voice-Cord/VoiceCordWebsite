@@ -95,7 +95,7 @@ export default {
 		};
 	},
 	async mounted() {
-		const user = this.$store.getters.getAuth;
+		const user = this.$store.getters.getAuthUser;
 
 		if (user) {
 			this.authUser = user;

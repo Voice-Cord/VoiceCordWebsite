@@ -167,6 +167,7 @@
 </template>
 
 <script>
+import { authService } from "@/classes/authService";
 import Dropdown from "./Dropdown.vue";
 
 export default {
@@ -212,11 +213,19 @@ export default {
 		},
 	},
 	async mounted() {
-		const user = this.$store.getters.getAuth;
-		if (user) {
-			this.authUser = user;
-			this.isLoggedIn = true;
-			this.userAvatar = this.authUser.avatar;
+		this.isLoggedIn = authService.isLoggedIn();
+
+		if (this.isLoggedIn) {
+			// User can be null even though logged in, because user gets set
+			// after this mount function gets called
+			const user = this.$store.getters.getAuthUser;
+			console.log("outside: " + user)
+			if(user) {
+				this.isLoggedIn = true
+				this.authUser = user;
+				console.log(user)
+				this.userAvatar = this.authUser.avatar;
+			}
 		}
 
 		window.addEventListener("resize", () => {

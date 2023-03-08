@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { discordGetRequest } from '@/functions/discordApi';
+import { discordApi } from '@/classes/discordApi';
 
 export default {
 	data() {
@@ -56,12 +56,12 @@ export default {
 		};
 	},
 	async mounted() {
-		const user = this.$store.getters.getAuth;
+		const user = this.$store.getters.getAuthUser;
         const monthlySubscriptionLink = "https://buy.stripe.com/6oE8xy9cjgQAdRm9AD";
         const yearlySubscriptionLink = "https://buy.stripe.com/6oEdRS9cj6bWaFa004";
 
 		if (user) {
-			const guilds = await discordGetRequest('users/@me/guilds')
+			const guilds = await discordApi.getRequest('users/@me/guilds')
 			if (!guilds) return;
 
 			this.guilds = guilds;

@@ -1,13 +1,13 @@
 <template></template>
 
 <script>
+import { authService } from '@/classes/authService';
+import store from '@/store';
+
 export default {
 	async mounted() {
-		localStorage.removeItem("discord.accessToken");
-		localStorage.removeItem("discord.refreshToken");
-        localStorage.removeItem("discord.expiresAt");
-		localStorage.removeItem("discord.tokenType");
-        this.$store.commit("setAuth", null);
+		authService.logout(this.$store);
+		console.log("logout")
         this.$router.push("/");
 	},
 };
