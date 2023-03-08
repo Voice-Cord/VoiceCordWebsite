@@ -58,50 +58,82 @@ serve(async (request) => {
 
     // If the event indicates payment completion
     if (action == "checkout.session") {
-        // Get the custom fields array
-        const customFields = receivedEvent.data.object.custom_fields;
+        // Get the client reference ID
+        const clientReferenceID = receivedEvent.data.object.client_reference_id;
 
-        // Confirm it's no longer than two indices long
-        if (customFields.length > 2) {
-            console.log("Invalid customFields:", customFields);
-        }
-        else {
-            let serverID, userID;
+        console.log("clientReferenceID", clientReferenceID);
+        
+        // Determine subscription type
+        const subscriptionType = clientReferenceID.split("_").length;
 
-            // Get userID and serverID (if it exists)
-            for (let i = 0; i < customFields.length; i++) {
-                if (customFields[i].key == "serverid") {
-                    serverID = customFields[i].numeric.value;
-                }
-                else if (customFields[i].key == "userid") {
-                    userID = customFields[i].numeric.value;
-                }
-                else {
-                    console.log("Invalid field:", customFields[i], customFields[i].key, customFields[i].key == "serverid", customFields[i].key == "userid");
-                }
+        // Get the user ID and server ID from the client reference ID
+        const userID = clientReferenceID.split("_")[0];
+        const serverID = (subscriptionType == 1) ? null : clientReferenceID.split("_")[1];
+
+        // Get the checkout session ID
+        const checkoutSessionID = receivedEvent.data.object.id;
+
+        // Get the customer ID
+        const customerID = receivedEvent.data.object.customer;
+
+        // Get the customer email
+        const customerEmail = receivedEvent.data.object.customer_details.email;
+
+        // Get the customer name
+        const customerName = receivedEvent.data.object.customer_details.name;
+
+        // Get the invoice ID
+        const invoiceID = receivedEvent.data.object.invoice;
+
+        // Get the payment link ID
+        const paymentLinkID = receivedEvent.data.object.payment_link;
+
+        // Get the payment status
+        const paymentStatus = receivedEvent.data.object.payment_status;
+
+        // Get the subscription ID
+        const subscriptionID = receivedEvent.data.object.subscription;
+
+        if (paymentStatus == "paid") {
+            // If the user is doing a user subscription
+            if (subscriptionType == 1) {
+                const res = await supabaseClient
+                    .from('user-subscriptions')
+                    .insert([
+                        {
+                            'user_id': userID,
+                            'checkout_session_id': checkoutSessionID,
+                            'customer_id': customerID,
+                            'customer_email': customerEmail,
+                            'customer_name': customerName,
+                            'invoice_id': invoiceID,
+                            'payment_link_id': paymentLinkID,
+                            'subscription_id': subscriptionID
+                        }
+                    ]);
+                console.log("User subscription successful", res);
             }
-
-            if (serverID && userID == "") {
-                console.log("No User ID provided");
-            }
-            else if (serverID && userID) {
+            // If the user is doing a server subscription
+            else if (subscriptionType == 2) {
                 console.log("SERVER ID:", serverID);
                 console.log("USER ID:", userID);
 
                 const res = await supabaseClient
                     .from('server-subscriptions')
                     .insert([
-                        { 'order_id': 'temp', 'user_id': userID, 'server_id': serverID }
+                        {
+                            'user_id': userID,
+                            'server_id': serverID,
+                            'checkout_session_id': checkoutSessionID,
+                            'customer_id': customerID,
+                            'customer_email': customerEmail,
+                            'customer_name': customerName,
+                            'invoice_id': invoiceID,
+                            'payment_link_id': paymentLinkID,
+                            'subscription_id': subscriptionID
+                        }
                     ]);
                 console.log("Server subscription successful", res);
-            }
-            else if (userID) {
-                const res = await supabaseClient
-                    .from('user-subscriptions')
-                    .insert([
-                        { 'order_id': 'temp', 'user_id': userID }
-                    ]);
-                console.log("User subscription successful", res);
             }
             else {
                 console.log("serverID and userID are both null");

@@ -8,7 +8,7 @@
 			<img src="@/assets/img/HomePage/Crowd.png" class="fgfg" />
 			<div
 				class="container"
-				style="transform: translateZ(5px) scale(0.85)"
+				style="transform: translateZ(-7px) scale(1.4)"
 			>
 				<div class="row">
 					<div class="ms-5 ps-5 col-5">

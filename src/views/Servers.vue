@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="nav-pad">
-			<div class="container my-5">
+			<div class="container py-5">
 				<h1 class="white center">Servers</h1>
 				<div class="row gy-4">
 					<div
@@ -73,8 +73,8 @@ export default {
 					guild.icon = require("@/assets/img/Logo/TransparentBGFace.png");
 				}
 
-                guild.monthlySubscription = `${monthlySubscriptionLink}?client_reference_id=${user.id}|${guild.id}`;
-                guild.yearlySubscription = `${yearlySubscriptionLink}?client_reference_id=${user.id}|${guild.id}`;
+                guild.monthlySubscription = `${monthlySubscriptionLink}?client_reference_id=${user.id}_${guild.id}`;
+                guild.yearlySubscription = `${yearlySubscriptionLink}?client_reference_id=${user.id}_${guild.id}`;
 			});
 		}
 	},
