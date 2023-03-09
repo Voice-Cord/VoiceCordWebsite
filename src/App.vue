@@ -14,7 +14,7 @@ export default {
         Footer
     },
     watch: {
-        "$store.state.auth": function(newVal, oldVal) {
+        "$store.state.authUser": function(newVal, oldVal) {
             this.authReloadKey++;
         }
     },

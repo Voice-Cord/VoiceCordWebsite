@@ -31,6 +31,7 @@
 					:key="item"
 					class="nav-link"
 					:to="item.path"
+                    @click="helloMyBruddah"
 				>
 					{{ item.title }}
 				</router-link>
@@ -83,6 +84,9 @@ export default {
 		toggleDropdown(event) {
 			this.isOpen = !this.isOpen;
 		},
+        helloMyBruddah() {
+            console.log("helloMyBruddah");
+        }
 	},
 };
 </script>

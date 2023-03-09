@@ -203,7 +203,7 @@ export default {
 	},
 	methods: {
 		async saveUser() {
-			const user = await discordApi.getRequest('users/@me')
+			const user = await discordApi.getRequest('users/@me');
 			if (!user) return user;
 
 			if (!user.avatar) {
@@ -215,7 +215,7 @@ export default {
 			}
 
 			// Add user data to store
-			console.log("save user: " + user)
+			console.log("save user: ", user)
 			this.$store.commit("setAuthUser", user);
 		},
 	},
@@ -231,7 +231,6 @@ export default {
 		// If code URL param exists, get access token from Discord API and save it into local storage
 		else if (code) {
 			const data = await authService.login(code);
-			if(!data) return;
 			this.saveUser();
 		}
 	},

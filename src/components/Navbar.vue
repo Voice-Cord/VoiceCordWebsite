@@ -172,7 +172,6 @@ import Dropdown from "./Dropdown.vue";
 
 export default {
 	name: "Navbar",
-	props: ["authUser"],
 	components: {
 		Dropdown,
 	},
@@ -218,12 +217,15 @@ export default {
 		if (this.isLoggedIn) {
 			// User can be null even though logged in, because user gets set
 			// after this mount function gets called
+            // Get user from store 
 			const user = this.$store.getters.getAuthUser;
-			console.log("outside: " + user)
+			console.log("outside: " + user);
+
+            // If the store user exists, set logged in to true
 			if(user) {
-				this.isLoggedIn = true
+				this.isLoggedIn = true;
 				this.authUser = user;
-				console.log(user)
+				console.log(user);
 				this.userAvatar = this.authUser.avatar;
 			}
 		}

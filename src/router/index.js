@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { supabase } from "@/supabase";
 import Home from "../views/Home.vue";
+import Logout from "../views/Logout.vue";
 import NotFound from "../views/NotFound.vue";
 import { authService } from "../classes/authService.js";
 
@@ -45,7 +45,7 @@ const routes = [
   {
     path: "/logout",
     name: "Logout",
-    component: () => import("../views/Logout.vue"),
+    component: Logout,
   },
   {
     path: "/:pathMatch(.*)",
