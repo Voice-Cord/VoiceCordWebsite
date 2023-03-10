@@ -279,6 +279,7 @@ header {
 .fgfg {
 	transform: translateX(0px) translateZ(3px) scale(0.851);
 	object-position: right;
+    pointer-events:none;
 }
 
 .bgbg,

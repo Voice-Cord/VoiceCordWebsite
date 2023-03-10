@@ -15,7 +15,7 @@ class AuthService {
                 client_secret: client.secret,
                 grant_type: "authorization_code",
                 code: code,
-                redirect_uri: "http://localhost:8080",
+                redirect_uri: "https://www.voicecord.app",
             }),
         });
         if (!data) return data;
