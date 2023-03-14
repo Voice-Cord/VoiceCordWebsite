@@ -2,7 +2,6 @@
 	<div class="wrapper cool-background">
 		<!-- HERO -->
 		<header>
-			<!-- <img src="@/assets/img/HomePage/BGBG.jpg" class="bgbg" /> -->
 			<img src="@/assets/img/HomePage/Light.png" class="background" />
 			<img src="@/assets/img/HomePage/Stage.png" class="foreground" />
 			<img src="@/assets/img/HomePage/Crowd.png" class="fgfg" />
@@ -71,9 +70,9 @@
 				>
 					<div class="container">
 						<h1 class="center mt-4 mb-4">What is VoiceCord?</h1>
-						<div class="row">
+						<div class="row gy-4 gx-3">
 							<div
-								class="col-6"
+								class="col-xxl-6 col-12"
 								style="
 									display: flex;
 									justify-content: center;
@@ -82,8 +81,11 @@
 								"
 							>
 								<iframe
-									width="560"
-									height="315"
+									style="
+										width: 100%;
+										max-width: 560px;
+										height: 315px;
+									"
 									src="https://www.youtube.com/embed/cQDnnMgopOo"
 									title="YouTube video player"
 									frameborder="0"
@@ -92,7 +94,7 @@
 								></iframe>
 							</div>
 							<div
-								class="col-6"
+								class="col-xxl-6 col-12"
 								style="
 									display: flex;
 									justify-content: center;
@@ -101,8 +103,11 @@
 								"
 							>
 								<iframe
-									width="560"
-									height="315"
+									style="
+										width: 100%;
+										max-width: 560px;
+										height: 315px;
+									"
 									src="https://www.youtube.com/embed/kAkvCwdeeTM"
 									title="YouTube video player"
 									frameborder="0"
@@ -115,8 +120,11 @@
 				</div>
 				<div class="pb-5 pt-3 container">
 					<h1 class="center mt-4 mb-4">Premium Features</h1>
-					<div class="mx-auto mb-5 row" style="width: 75% !important">
-						<div class="col-4">
+					<div
+						class="mx-auto mb-5 row gy-4"
+						style="width: 75% !important"
+					>
+						<div class="col-xl-4 col-12">
 							<div class="d-flex" style="justify-content: center">
 								<div class="card" style="width: 18rem">
 									<img
@@ -136,7 +144,7 @@
 							</div>
 						</div>
 
-						<div class="col-4">
+						<div class="col-xl-4 col-12">
 							<div class="d-flex" style="justify-content: center">
 								<div class="card" style="width: 18rem">
 									<img
@@ -150,14 +158,13 @@
 											style="color: black"
 										>
 											Continuous voice message thread
-											(coming soon)
 										</p>
 									</div>
 								</div>
 							</div>
 						</div>
 
-						<div class="col-4">
+						<div class="col-xl-4 col-12">
 							<div class="d-flex" style="justify-content: center">
 								<div class="card" style="width: 18rem">
 									<img
@@ -189,8 +196,8 @@
 import Parallax from "@/components/Parallax.vue";
 import SkewBox from "@/components/SkewBox.vue";
 import Footer from "@/components/Footer.vue";
-import { discordApi } from '@/classes/discordApi';
-import { authService } from '@/classes/authService';
+import { discordApi } from "@/classes/discordApi";
+import { authService } from "@/classes/authService";
 
 export default {
 	components: {
@@ -203,7 +210,7 @@ export default {
 	},
 	methods: {
 		async saveUser() {
-			const user = await discordApi.getRequest('users/@me');
+			const user = await discordApi.getRequest("users/@me");
 			if (!user) return user;
 
 			if (!user.avatar) {
@@ -215,7 +222,7 @@ export default {
 			}
 
 			// Add user data to store
-			console.log("save user: ", user)
+			console.log("save user: ", user);
 			this.$store.commit("setAuthUser", user);
 		},
 	},
@@ -239,11 +246,11 @@ export default {
 
 <style>
 .cool-background {
-    background-image: url("../assets/img/v2.jpg");
+	background-image: url("../assets/img/v2.jpg");
 	background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
 	backdrop-filter: blur(10px);
 }
 
@@ -279,7 +286,8 @@ header {
 .fgfg {
 	transform: translateX(0px) translateZ(3px) scale(0.851);
 	object-position: right;
-    pointer-events:none;
+	pointer-events: none;
+	height: 150% !important;
 }
 
 .bgbg,
@@ -291,10 +299,6 @@ header {
 	width: 100%;
 	object-fit: cover;
 	z-index: -1;
-}
-
-.fgfg {
-	height: 150%;
 }
 
 .title {
@@ -320,8 +324,43 @@ section {
 	position: fixed;
 	top: 0;
 	left: 0;
-	width: 100%;
+	width: calc(100vw);
 	height: 100%;
 	z-index: -1;
+}
+
+@media (max-width: 1599.9px) {
+	header {
+		height: 90%;
+	}
+
+	.background {
+		transform: translateZ(-20px) scaleY(2.15) scaleX(2.15) translateX(-20px);
+	}
+
+	.foreground {
+		transform: translateX(-2px) translateZ(-10px) scale(1.6);
+	}
+
+	.fgfg {
+		transform: translateX(0px) translateZ(3px) scale(0.86);
+	}
+}
+@media (max-width: 1399.9px) {
+	header {
+		height: 80%;
+	}
+
+	.background {
+		transform: translateZ(-20px) scaleY(2.3) scaleX(2.3) translateX(-50px);
+	}
+
+	.foreground {
+		transform: translateX(-2px) translateZ(-10px) scale(1.6);
+	}
+
+	.fgfg {
+		transform: translateX(0px) translateZ(3px) scale(0.86);
+	}
 }
 </style>

@@ -18,9 +18,9 @@
 						<div class="col-1"></div>
 
 						<div class="col-3">
-							<h4 class="accent">Invite VoiceCord</h4>
+							<h4 class="accent">Terms of Service</h4>
 							<hr class="accent" />
-                            <a href="https://www.voicecord.app/invite" class="accent-link" target="_blank">https://www.voicecord.app/invite</a>
+                            <router-link to="/tos" class="accent-link">View VoiceCord ToS</router-link>
 						</div>
 
 						<div class="col-3">
@@ -111,16 +111,18 @@ export default {
 }
 
 .top-bg {
-	background-image: url("../assets/img/Footer.jpg"),
-		linear-gradient(to right, rgb(25, 25, 25), rgba(25, 25, 25, 0.322));
+	/* background-image: url("../assets/img/BGBG.jpg"),
+		linear-gradient(to top, rgb(25, 25, 25), rgba(133, 133, 133, 0.322));
 	background-blend-mode: overlay;
 	background-size: cover;
 	background-repeat: no-repeat;
-	background-position: center;
+	background-position: center; */
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
 	overflow: visible;
 	padding-top: 50px;
 	height: 100px;
-	border-top: 5px solid var(--FSCred);
+    border-top: 5px solid var(--accent);
 }
 
 .bottom-bg {

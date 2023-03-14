@@ -41,7 +41,7 @@ export default {
 
     --primary: #1f1f1f;
     --secondary: #535353 !important;
-    --accent: #005eff !important;
+    --accent: rgb(0, 94, 255) !important;
     --accent2: #08ff00 !important;
     --old-blurple: #7289DA !important;
     --new-blurple: #5865F2 !important;
@@ -151,7 +151,7 @@ h6 {
 ::-webkit-scrollbar-thumb {
     background-color: var(--accent) !important;
     border-radius: 100px !important;
-    width: 4px !important;
+    width: px !important;
     border: 3px solid var(--accent) !important;
 }
 

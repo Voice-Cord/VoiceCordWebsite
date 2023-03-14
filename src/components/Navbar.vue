@@ -3,7 +3,7 @@
 		<nav class="p-0 m-0 navbar navbar-dark navbar-expand-xl align-middle">
 			<div class="w-100 contain">
 				<div class="row block-center">
-					<router-link to="/" class="col-3 me-0 navbar-brand">
+					<router-link to="/" class="col-xl-3 me-0 navbar-brand">
 						<img
 							src="@/assets/img/Logo/VoiceCordFull.png"
 							height="70"
@@ -14,7 +14,6 @@
 					</router-link>
 
 					<button
-						v-if="false"
 						class="navbar-toggler"
 						type="button"
 						data-toggle="collapse"
@@ -37,7 +36,7 @@
 					</button>
 
 					<div
-						class="col-6"
+						class="col-xl-6"
 						style="display: flex; justify-content: center"
 					>
 						<div
@@ -46,8 +45,8 @@
 							:style="
 								useHamburger
 									? (isOpen
-											? 'transform: translateY(0); height: calc(100vh - 60px)!important;'
-											: 'transform: translateY(-1000px); height: calc(100vh - 60px)!important;') +
+											? 'transform: translateY(0); height: calc(100vh - 0px)!important;'
+											: 'transform: translateY(-1000px); height: calc(100vh - 0px)!important;') +
 									  ' overflow-y: scroll!important'
 									: 'transform: translateY(0)'
 							"
@@ -84,12 +83,60 @@
 										>
 									</div>
 								</div>
+
+                                <div class="nav-item" v-if="!isLoggedIn && width < 1200">
+									<div class="nav-link">
+										<router-link
+											to="/login"
+											class="btn btn-secondary btn-md"
+										>
+											Login
+										</router-link>
+									</div>
+								</div>
+
+								<div class="nav-item" v-if="isLoggedIn && width < 1200">
+									<div class="nav-link">
+										<router-link
+											to="/upgrade"
+											class="btn btn-secondary btn-md"
+											style="
+												border: 2px solid
+													var(--accent2-dark);
+											"
+										>
+											Upgrade to Premium
+										</router-link>
+									</div>
+								</div>
+
+								<div class="nav-item" v-if="isLoggedIn && width < 1200">
+									<Dropdown
+										:header="`<img src='${
+											userAvatar
+												? userAvatar
+												: 'https://www.knack.com/images/about/default-profile.png'
+										}' style='height: 40px; border: 2px solid var(--accent2); border-radius: 50%; background-color: var(--accent)'>`"
+										:useRouterLinks="true"
+										:width="'100px'"
+										:pageWidth="width"
+										:dropContent="[
+											{
+												path: '/logout',
+
+												title: 'Log Out',
+											},
+										]"
+										:useArrow="false"
+									/>
+								</div>
 							</div>
 						</div>
 					</div>
 
 					<div
-						class="col-3"
+						class="col-xl-3"
+                        v-if="width >= 1200"
 						style="
 							display: flex;
 							justify-content: end;
@@ -340,7 +387,7 @@ contrast(86%);
 	}
 
 	.navbar-toggler-icon {
-		background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28186, 12, 47, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+		background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 94, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
 	}
 
 	.nav-items {
@@ -383,5 +430,14 @@ contrast(86%);
 			transparent
 		);
 	}
+}
+</style>
+
+<style scoped>
+@media (max-width: 1199.98px) {
+    .row.block-center {
+        width: calc(100vw - 50px)!important;
+        justify-content: flex-end;
+    }
 }
 </style>
