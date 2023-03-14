@@ -5,7 +5,7 @@
 				<div class="footer-content">
 					<div class="row block-center">
 						<!-- MIC -->
-						<div class="col-2">
+						<div class="col-3" style="display: flex; justify-content: center; align-items: center;">
 							<router-link to="/">
 								<img
 									src="../assets/img/Logo/VoiceCordFull.png"
@@ -15,18 +15,30 @@
 						</div>
 
 						<!-- SPACER -->
-						<div class="col-1"></div>
 
 						<div class="col-3">
-							<h4 class="accent">Terms of Service</h4>
+							<h4 class="accent">Legal Jargon</h4>
 							<hr class="accent" />
-                            <router-link to="/tos" class="accent-link">View VoiceCord ToS</router-link>
+							<router-link to="/tos" class="accent-link"
+								>Terms of Service</router-link
+							>
+							<br />
+							<router-link
+								to="/privacy"
+								class="accent-link"
+								>Privacy Policy</router-link
+							>
 						</div>
 
 						<div class="col-3">
 							<h4 class="accent2">Discord Server</h4>
 							<hr class="accent2" />
-                            <a href="https://discord.gg/dQxrxkhBBz" class="accent2-link" target="_blank">https://discord.gg/dQxrxkhBBz</a>
+							<a
+								href="https://discord.gg/dQxrxkhBBz"
+								class="accent2-link"
+								target="_blank"
+								>https://discord.gg/dQxrxkhBBz</a
+							>
 						</div>
 
 						<div class="col-3">
@@ -60,10 +72,7 @@
 					height="44"
 					alt="Logo"
 					title="Logo"
-					style="
-						display: inline-block;
-						float: left;
-					"
+					style="display: inline-block; float: left"
 				/>
 				<p class="white my-0 py-0 ms-2">
 					VoiceCord &copy; {{ new Date().getFullYear() }}
@@ -117,12 +126,12 @@ export default {
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center; */
-    background-color: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(10px);
+	background-color: rgba(0, 0, 0, 0.7);
+	backdrop-filter: blur(10px);
 	overflow: visible;
 	padding-top: 50px;
 	height: 100px;
-    border-top: 5px solid var(--accent);
+	border-top: 5px solid var(--accent);
 }
 
 .bottom-bg {
@@ -138,7 +147,7 @@ export default {
 	left: 50%;
 	transform: translateX(-50%);
 	text-align: center;
-    padding-bottom: 20px;
+	padding-bottom: 20px;
 }
 
 #largeFooter .footer-content {
@@ -147,7 +156,7 @@ export default {
 	z-index: 10;
 	left: 50%;
 	border-radius: 30px;
-	padding: 2rem;
+	padding: 1rem;
 }
 
 .footer-content h2 {

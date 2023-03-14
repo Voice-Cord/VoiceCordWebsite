@@ -1,5 +1,5 @@
 <template>
-	<div class="applicationContainer">
+	<div class="">
 		<Navbar :key="authReloadKey" />
 		<router-view></router-view>
 	</div>
